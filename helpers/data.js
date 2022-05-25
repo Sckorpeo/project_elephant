@@ -9,25 +9,25 @@ const maps = [
 ];
 
 const agents = [
-	'Brimstone',
-	'Phoenix',
-	'Sage',
-	'Sova',
-	'Viper',
-	'Cypher',
-	'Reyna',
-	'Killjoy',
-	'Breach',
-	'Omen',
-	'Jett',
-	'Raze',
-	'Skye',
-	'Yoru',
-	'Astra',
-	'Kay/o',
-	'Chamber',
-	'Neon',
-	'Fade'
+	'brimstone',
+	'phoenix',
+	'sage',
+	'sova',
+	'viper',
+	'cypher',
+	'reyna',
+	'killjoy',
+	'breach',
+	'omen',
+	'jett',
+	'raze',
+	'skye',
+	'yoru',
+	'astra',
+	'kay/o',
+	'chamber',
+	'neon',
+	'fade'
 ];
 
 const roles = [

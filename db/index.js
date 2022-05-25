@@ -74,6 +74,8 @@ const Side = conn.define('side', {
 	}
 });
 
+Agent.hasOne(Match);
+
 export {
 	conn,
 	Agent,
