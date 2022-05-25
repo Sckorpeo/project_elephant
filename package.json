@@ -9,5 +9,6 @@
 	},
 	"keywords": [],
 	"author": "Kieran Brugman",
-	"license": "ISC"
+	"license": "ISC",
+	"type": "module"
 }

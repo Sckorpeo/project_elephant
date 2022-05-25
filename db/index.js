@@ -1,5 +1,4 @@
-import Sequelize from 'sequelize';
-import { STRING, INTEGER, TEXT } from Sequelize;
+import Sequelize, { STRING, INTEGER, TEXT } from 'sequelize';
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_express_seq');
 
 const Agent = conn.define('agent', {
