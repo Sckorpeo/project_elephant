@@ -39,7 +39,6 @@ function btnEvnt() {
 		winInput.name = 'roundsWon';
 		winInput.min = '0';
 
-		console.dir(winInput);
 		lossInput2.placeholder = 'Rounds Lost';
 		lossInput2.type = 'number';
 		lossInput2.name = 'roundsLost';
@@ -54,7 +53,6 @@ function btnEvnt() {
 		newForm.appendChild(lossInput2);
 		newForm.appendChild(agentInput3);
 		newForm.appendChild(newBtn);
-		console.dir(newForm)
 		contentArea.appendChild(newForm);
 
 		winInput.addEventListener('input', updateInputState);
@@ -68,7 +66,7 @@ function btnEvnt() {
 			console.log('Submitted!', { roundsWon, roundsLost, agent });
 			const res = await axios.post('/api/matches', { roundsWon, roundsLost, agent });
 
-			state.matches.push(res.data);
+			state.matches.push({ ...res.data, 'agent': { name: agent } });
 			renderMatches();
 		});
 	});
@@ -114,7 +112,6 @@ async function fetchAgents() {
 		<option value="${agent.name}">${agent.name.charAt(0).toUpperCase() + agent.name.slice(1)}</option>
 		`
 	}).join('');
-	console.log(agents.data);
 }
 
 async function fetchMaps() {
@@ -136,7 +133,7 @@ function renderMatches() {
 				<div>Match: ${match.id}</div>
 				<div>Rounds Won - ${match.roundsWon}</div>
 				<div>Rounds Lost - ${match.roundsLost}</div>
-				<div>Agent Played - ${match.agentId}</div>
+				<div>Agent Played - ${match.agent.name}</div>
 			</div>
 			`
 		}).join('');

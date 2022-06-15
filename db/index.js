@@ -1,5 +1,5 @@
 import Sequelize, { STRING, INTEGER, TEXT } from 'sequelize';
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_express_seq');
+const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_express_spa');
 
 const Agent = conn.define('agent', {
 	name: {
@@ -74,7 +74,8 @@ const Side = conn.define('side', {
 	}
 });
 
-Agent.hasOne(Match);
+Agent.hasMany(Match);
+Match.belongsTo(Agent);
 
 export {
 	conn,

@@ -14,7 +14,7 @@ api.get('/agents', async (req, res) => {
 });
 
 api.get('/matches', async (req, res) => {
-	const matches = await Match.findAll();
+	const matches = await Match.findAll({ include: { model: Agent } });
 	res.send(matches);
 });
 
