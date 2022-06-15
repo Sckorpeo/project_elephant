@@ -22,6 +22,17 @@ window.addEventListener('hashchange', () => {
 	}
 });
 
+window.addEventListener('click', async (alligator) => {
+	if (alligator.target.nodeName === "BUTTON" && alligator.target.className === 'delete-text') {
+
+		console.dir(alligator.target);
+		const { id } = alligator.target;
+		await axios.delete(`/api/matches/${id}`);
+		await fetchMatches();
+		renderMatches();
+	}
+});
+
 function btnEvnt() {
 	const newMatchBtn = document.getElementById('add-match-btn');
 	newMatchBtn.addEventListener('click', function () {
@@ -129,11 +140,12 @@ function renderMatches() {
 	} else {
 		matches = state.matches.map(match => {
 			return `
-			<div class="content-card">
+			<div class="content-card deletable">
 				<div>Match: ${match.id}</div>
 				<div>Rounds Won - ${match.roundsWon}</div>
 				<div>Rounds Lost - ${match.roundsLost}</div>
 				<div>Agent Played - ${match.agent.name}</div>
+				<button class="delete-text" id="${match.id}">Delete?</button>
 			</div>
 			`
 		}).join('');

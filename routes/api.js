@@ -34,4 +34,15 @@ api.post('/matches', async (req, res, next) => {
 
 });
 
+api.delete('/matches/:id', async (req, res, next) => {
+	try {
+		const match = await Match.findByPk(req.params.id);
+		await match.destroy();
+		res.sendStatus(204);
+	}
+	catch (err) {
+		next(err);
+	}
+});
+
 export default api;

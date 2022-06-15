@@ -73,3 +73,17 @@ button {
 form>input {
 	padding: .5rem 1rem;
 }
+
+.deletable {
+	z-index: 100;
+}
+
+.deletable:hover {
+	background-color: black;
+	color: #f24555;
+	cursor: pointer;
+}
+
+.delete-text {
+	color: #f24555;
+}
