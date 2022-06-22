@@ -1,9 +1,14 @@
 import axios from 'axios';
+import React, { useState } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import List from './Components/List.js';
 
 const contentArea = document.getElementsByClassName('page-content-main')[0];
 
 const state = {
-	agent: 'brimstone'
+	agent: 'brimstone',
+	agents: []
 };
 
 window.addEventListener('hashchange', () => {
@@ -182,5 +187,36 @@ async function pageLoad() {
 }
 
 pageLoad();
+
+
+
+// React component usage
+
+const App = () => {
+	const [agents, setAgents] = useState([]);
+	const handleClick = async (evt) => {
+		const agentData = await axios.get(`/api/${evt.target.textContent.toLowerCase()}`);
+		setAgents(agentData.data);
+	}
+	return (
+		<div className="page-content">
+			<div className="page-sidebar">
+				<ul>
+					<li><a href="/">Dashboard</a></li>
+					<li><a href="/#matches">Matches</a></li>
+					<li onClick={handleClick} name='agents' key={'agents'}>Agents</li>
+					<li onClick={handleClick} name='maps'>Maps</li>
+				</ul>
+			</div>
+			<div className="page-content-main">
+				<List data={agents} />
+			</div>
+		</div>
+	)
+}
+
+const box = document.getElementById('root');
+const root = createRoot(box);
+root.render(<App />);
 
 
