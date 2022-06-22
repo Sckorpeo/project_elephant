@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import List from './Components/List.js';
+import MatchList from './Components/MatchList.js';
 
 const contentArea = document.getElementsByClassName('page-content-main')[0];
 
@@ -192,24 +193,36 @@ pageLoad();
 
 // React component usage
 
+
 const App = () => {
-	const [agents, setAgents] = useState([]);
+	const [state, setState] = useState({ agents: [], matches: [{ id: 1, roundsWon: 2, roundsLost: 3, agent: { name: 'brimstone' } }], maps: [], dashboard: [], tab: 'dashboard', toggle: false });
 	const handleClick = async (evt) => {
-		const agentData = await axios.get(`/api/${evt.target.textContent.toLowerCase()}`);
-		setAgents(agentData.data);
+		const actionName = evt.target.textContent.toLowerCase();
+		const res = await axios.get(`/api/${actionName}`);
+		setState({ ...state, [actionName]: res.data, tab: actionName });
+	}
+	const compSwitch = () => {
+		switch (state.tab) {
+			case 'matches':
+				return <MatchList matches={state.matches} setState={setState} state={state} />
+			default:
+				return <List data={state[state.tab]} />
+
+		}
+
 	}
 	return (
 		<div className="page-content">
 			<div className="page-sidebar">
 				<ul>
 					<li><a href="/">Dashboard</a></li>
-					<li><a href="/#matches">Matches</a></li>
-					<li onClick={handleClick} name='agents' key={'agents'}>Agents</li>
+					<li onClick={handleClick} name='matches'>Matches</li>
+					<li onClick={handleClick} name='agents'>Agents</li>
 					<li onClick={handleClick} name='maps'>Maps</li>
 				</ul>
 			</div>
 			<div className="page-content-main">
-				<List data={agents} />
+				{compSwitch()}
 			</div>
 		</div>
 	)

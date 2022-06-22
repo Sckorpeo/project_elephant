@@ -2,3 +2,4 @@ node_modules
 dist
 html
 public/scripts
+.DS_Store
